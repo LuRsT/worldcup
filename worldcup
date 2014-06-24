@@ -1,0 +1,35 @@
+#!/bin/bash
+
+URL="http://worldcup.sfg.io/matches/"
+CACHE_FILE="/tmp/cache.json"
+
+curl $URL > $CACHE_FILE
+
+GAMES_COUNT=$(cat $CACHE_FILE | jq "length")
+
+for INDEX in $(seq 0 $((${GAMES_COUNT} - 1))); do
+    home_team=$(cat $CACHE_FILE | jq ".[$INDEX].home_team.country?")
+    away_team=$(cat $CACHE_FILE | jq ".[$INDEX].away_team.country?")
+    game_status=$(cat $CACHE_FILE | jq ".[$INDEX].status?")
+
+    goals_from_home_team=$(cat $CACHE_FILE | jq ".[$INDEX].home_team.goals?")
+    goals_from_away_team=$(cat $CACHE_FILE | jq ".[$INDEX].away_team.goals?")
+
+    if [ "$game_status" != '"future"' ]; then
+        home_team="$home_team ($goals_from_home_team)"
+        away_team="$away_team ($goals_from_away_team)"
+    fi
+
+    if [ "$game_status" == '"in progress"' ]; then
+        status_msg="⟷ "
+    elif [ "$game_status" == '"future"' ]; then
+        status_msg="⟶ "
+    elif [ "$game_status" == '"completed"' ]; then
+        status_msg="⟵ "
+    fi
+
+    if [ "$home_team" ]; then
+        echo -e "$status_msg $home_team vs $away_team"
+    fi
+done
+
