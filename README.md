@@ -6,8 +6,6 @@ View scores for the worldcup games in your terminal (bash edition).
 I know that there are a lot of other `worldcup` apps out there, just wanted to
 do one in bash.
 
-This also serves as a way to use `jq`
-
 ## Requires
 
 * jq (1.4)
