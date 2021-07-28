@@ -3,7 +3,7 @@
 URL="http://worldcup.sfg.io/matches/"
 CACHE_FILE="/tmp/cache.json"
 
-curl $URL > $CACHE_FILE
+curl -s $URL > $CACHE_FILE
 
 GAMES_COUNT=$(cat $CACHE_FILE | jq "length")
 
