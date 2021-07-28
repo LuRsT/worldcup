@@ -12,7 +12,7 @@ do one in bash.
 
 ## How to install
 
-    $ curl https://github.com/LuRsT/worldcup/blob/master/worldcup > ~/bin/worldcup
+    $ curl https://raw.githubusercontent.com/LuRsT/worldcup/master/worldcup > ~/bin/worldcup
     $ chmod +x ~/bin/worldcup
 
 ## How to use
